@@ -1,6 +1,6 @@
 {
   "name": "@abhishek_kolge/logpro-logger",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "A logger for an Express.js server that logs all incoming requests and outgoing responses and allows users to view these logs on a LogPro dashboard",
   "main": "src/index.js",
   "scripts": {
