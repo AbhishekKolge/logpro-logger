@@ -32,9 +32,14 @@ const logProLogger = ({ key }) => {
     };
 
     try {
-      await axios.post(logProUrl, body, {
-        headers,
-      });
+      const ip = await axios('https://api.ipify.org?format=json');
+      await axios.post(
+        logProUrl,
+        { ...body, remoteAddress: ip },
+        {
+          headers,
+        }
+      );
     } catch (error) {
       console.log(error.message);
     }
