@@ -15,7 +15,7 @@ Create a Express.js server
 Installation
 
 ```bash
-  npm i @abhishek_kolge/logpro-logger
+npm i @abhishek_kolge/logpro-logger
 ```
 
 Import as default
