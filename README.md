@@ -21,7 +21,7 @@ npm i @abhishek_kolge/logpro-logger
 Import as default
 
 ```
-const logProLogger = require('logpro-logger');
+const logProLogger = require('@abhishek_kolge/logpro-logger');
 ```
 
 Create an Express.js middleware for logging:
