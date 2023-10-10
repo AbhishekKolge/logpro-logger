@@ -32,10 +32,17 @@ const logProLogger = ({ key }) => {
     };
 
     try {
-      const ip = await axios('https://api.ipify.org?format=json');
+      const ipDataRes = await axios('https://api.ipify.org?format=json');
+
+      let ip = '';
+
+      if (ipDataRes?.data?.ip) {
+        ip = ipDataRes.data.ip;
+      }
+
       await axios.post(
         logProUrl,
-        { ...body, remoteAddress: ip },
+        { ...body, remoteAddress: ip || remoteAddress },
         {
           headers,
         }
