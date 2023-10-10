@@ -1,0 +1,22 @@
+{
+  "name": "@abhishek_kolge/logpro-logger",
+  "version": "1.0.0",
+  "description": "A logger for an Express.js server that logs all incoming requests and outgoing responses and allows users to view these logs on a LogPro dashboard",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "(https://github.com/AbhishekKolge/logpro-logger.git)"
+  },
+  "keywords": [
+    "logger"
+  ],
+  "author": "Abhishek Kolge",
+  "license": "ISC",
+  "dependencies": {
+    "@mswjs/interceptors": "^0.25.6",
+    "axios": "^1.5.1"
+  }
+}
