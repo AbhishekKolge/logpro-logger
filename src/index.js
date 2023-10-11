@@ -57,7 +57,6 @@ const logProLogger = ({ key, type = 'development' }) => {
             headers,
           }
         );
-        return;
       }
       console.log(
         JSON.stringify({
