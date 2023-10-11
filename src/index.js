@@ -10,6 +10,16 @@ const logProLogger = ({ key }) => {
     const { statusCode, statusMessage } = response;
     const responseHeaders = response.getHeaders();
 
+    const headersObject = {};
+
+    for (let i = 0; i < rawHeaders.length; i += 2) {
+      const key = rawHeaders[i];
+      const value = rawHeaders[i + 1];
+      headersObject[key] = value;
+    }
+
+    let trueClientIp = headersObject['True-Client-Ip'];
+
     const body = {
       timestamp: new Date(requestStart),
       processingTime: Date.now() - requestStart,
@@ -32,17 +42,16 @@ const logProLogger = ({ key }) => {
     };
 
     try {
-      const ipDataRes = await axios('https://api.ipify.org?format=json');
-
-      let ip = '';
-
-      if (ipDataRes?.data?.ip) {
-        ip = ipDataRes.data.ip;
+      if (!trueClientIp) {
+        const ipDataRes = await axios('https://api.ipify.org?format=json');
+        if (ipDataRes?.data?.ip) {
+          trueClientIp = ipDataRes.data.ip;
+        }
       }
 
       await axios.post(
         logProUrl,
-        { ...body, remoteAddress: ip || remoteAddress },
+        { ...body, remoteAddress: trueClientIp || remoteAddress },
         {
           headers,
         }
