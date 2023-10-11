@@ -3,7 +3,7 @@ const axios = require('axios').default;
 const logProUrl =
   'https://log-pro-backend-production.up.railway.app/api/v1/logs';
 
-const logProLogger = ({ key }) => {
+const logProLogger = ({ key, type = 'development' }) => {
   const log = async (request, response, data, requestStart) => {
     const { rawHeaders, httpVersion, method, socket, url } = request;
     const { remoteAddress, remoteFamily } = socket;
@@ -42,19 +42,28 @@ const logProLogger = ({ key }) => {
     };
 
     try {
-      if (!trueClientIp) {
-        const ipDataRes = await axios('https://api.ipify.org?format=json');
-        if (ipDataRes?.data?.ip) {
-          trueClientIp = ipDataRes.data.ip;
+      if (type !== 'development') {
+        if (!trueClientIp) {
+          const ipDataRes = await axios('https://api.ipify.org?format=json');
+          if (ipDataRes?.data?.ip) {
+            trueClientIp = ipDataRes.data.ip;
+          }
         }
-      }
 
-      await axios.post(
-        logProUrl,
-        { ...body, remoteAddress: trueClientIp || remoteAddress },
-        {
-          headers,
-        }
+        await axios.post(
+          logProUrl,
+          { ...body, remoteAddress: trueClientIp || remoteAddress },
+          {
+            headers,
+          }
+        );
+        return;
+      }
+      console.log(
+        JSON.stringify({
+          ...body,
+          remoteAddress: trueClientIp || remoteAddress,
+        })
       );
     } catch (error) {
       console.log(error.message);
