@@ -1,7 +1,7 @@
 const axios = require('axios').default;
 
 const logProUrl =
-  'https://log-pro-backend-production.up.railway.app/api/v1/logs';
+  'https://log-pro-server.onrender.com/api/v1/logs';
 
 const logProLogger = ({ key, type = 'development' }) => {
   const log = async (request, response, data, requestStart) => {
